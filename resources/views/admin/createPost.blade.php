@@ -7,11 +7,17 @@
   @method('POST')
   <div class="my-2">
     <label class="label-control" for="title">TITLE</label>
-    <input class="form-control" type="text" name="title" id="title">
+    <input class="form-control" type="text" name="title" id="title" value="{{old('title')}}">
+    @error('title')
+      <div class="alert alert-danger my-1">{{$message}}</div>
+    @enderror
   </div>
   <div class="my-2">
     <label class="label-control" for="content">CONTENT</label>
-    <textarea class="form-control" name="content" id="content" cols="30" rows="5"></textarea>
+    <textarea class="form-control" name="content" id="content" cols="30" rows="5">{{old('content')}}</textarea>
+    @error('content')
+      <div class="alert alert-danger my-1">{{$message}}</div>
+    @enderror
   </div>
   <button type="submit" class="btn btn-success">CREATE</button>
   </form>
