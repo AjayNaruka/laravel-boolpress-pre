@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
@@ -17,8 +18,10 @@ class PostController extends Controller
      */
     public function index()
     {
+        $categories = Category::all();
         $posts = Post::all();
-        return view('admin.posts',compact('posts'));
+        $data = ['posts'=>$posts,'categories'=>$categories];
+        return view('admin.posts',$data);
     }
 
     /**

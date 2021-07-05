@@ -18,6 +18,15 @@
           <button class="btn btn-danger" type="submit">DELETE</button></form>
       </div>
     @endforeach
+
+    <h3>CATEGORIES:</h3>
+    <div>
+      @foreach ($categories as $category )
+        <h4>{{$category['name']}} : @foreach ($category->posts as $post )
+          {{$post->title}} - 
+        @endforeach </h4>
+      @endforeach
+    </div>
   </div>
 </div>
 
