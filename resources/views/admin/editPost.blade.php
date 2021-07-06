@@ -19,6 +19,29 @@
     <div class="alert alert-danger my-1">{{$message}}</div>
   @enderror
   </div>
+  <div class="mb-3">
+    <h5>Tag</h5>
+    @foreach($tags as $tag)
+        <span class="d-inline-block mr-3">
+            <input type="checkbox"
+                id="tag{{ $loop->index }}"
+                name="tags[]"
+                value="{{ $tag->id }}"
+
+                @if ($errors->any() && in_array($tag->id, old('tags',[])))
+                    checked
+                @elseif (!$errors->any() && $post->tags->contains($tag->id))
+                    checked
+                @endif
+
+            >
+            <label for="tag{{ $loop->index }}">{{ $tag->title }}</label>
+        </span>
+    @endforeach
+    @error('tags')
+        <p class="text-danger">{{ $message }}</p>
+    @enderror
+</div>
   <button type="submit" class="btn btn-success">EDIT</button>
   </form>
 </div>

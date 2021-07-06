@@ -8,6 +8,7 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -31,7 +32,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.createPost');
+        $tags = Tag::all();
+        return view('admin.createPost',compact('tags'));
     }
 
     /**
@@ -43,10 +45,14 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $data = $request->all();
+        /* dd($data); */
         $data['slug']= Str::slug($data['title'],'-');
         $new_post = new Post();
         $new_post->fill($data);
         $new_post->save();
+
+        $new_post->tags()->attach($data['tags']);
+
         return redirect()->route('admin.posts.show',$new_post);
     }
 
@@ -70,8 +76,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $tags = Tag::all();
         $post = Post::find($id);
-        return view ('admin.editPost',compact('post'));
+        return view ('admin.editPost',compact('post','tags'));
     }
 
     /**
@@ -87,6 +94,8 @@ class PostController extends Controller
         $data['slug']= Str::slug($data['title'],'-');
         $toEditPost = Post::find($id);
         $toEditPost->update($data);
+
+        $toEditPost->tags()->sync($data['tags']);
         return redirect()->route('admin.posts.show',$toEditPost); 
     }
 

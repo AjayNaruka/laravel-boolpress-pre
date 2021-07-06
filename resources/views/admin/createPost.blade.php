@@ -19,7 +19,22 @@
       <div class="alert alert-danger my-1">{{$message}}</div>
     @enderror
   </div>
+  
+  <div class="my-2">
+    <span>TAGS: <br></span>
+    {{-- CHECKBOXES --}}
+  @foreach ($tags as $tag)
+  <input type="checkbox" id="tag{{$loop->index}}" name="tags[]" value="{{$tag->id}}" 
+  @if (in_array($tag->id, old('tags',[]))) checked
+    
+  @endif>
+  <label for="tag{{$loop->index}}">{{$tag['title']}}</label>
+@endforeach
+  </div>
   <button type="submit" class="btn btn-success">CREATE</button>
+
+  
+
   </form>
 </div>
 @endsection

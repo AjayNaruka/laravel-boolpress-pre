@@ -9,7 +9,11 @@
   <div class="posts-container">
     @foreach ($posts as $post)
       <div class="post py-3">
-        <h4>{{$post['title']}}</h4>
+        <h4>{{$post['title']}}</h4> 
+        <div class="post-tags">
+          @foreach ($post->tags as $tag)
+          <span class="badge bg-success">{{$tag['title']}}</span>
+        @endforeach</div>
         <a href="{{route('admin.posts.show',$post)}}"><button class="btn btn-primary">OPEN</button></a>
         <a href="{{route('admin.posts.edit',$post)}}"><button class="btn btn-secondary mx-2">EDIT</button></a>
         <form style="display: inline-block" action="{{route('admin.posts.destroy',$post)}}" method="POST">
