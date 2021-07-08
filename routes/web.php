@@ -25,6 +25,6 @@ Route::middleware('auth')
     });
 
 Auth::routes();
-
+Route::get('{any?}', 'PageController@index')->where('any','.*');
 
 //Route::get('/home', 'HomeController@index')->name('home');

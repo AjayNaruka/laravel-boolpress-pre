@@ -10,5 +10,6 @@
 <body>
   @include('partials.header')
   @yield('content')
+  <script src="{{asset('js/admin.js')}}"></script>
 </body>
 </html>
